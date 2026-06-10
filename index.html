@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Miguel's Plumbing – Surrey, BC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0B1F3A;
+      --copper: #C07A3A;
+      --teal:   #2A7F8F;
+      --light:  #F4F7FA;
+      --white:  #FFFFFF;
+      --text:   #1C2B3A;
+      --muted:  #5A6B7C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(11, 31, 58, 0.95);
+      backdrop-filter: blur(6px);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--copper);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--white); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--copper); }
+    .nav-cta {
+      background: var(--copper);
+      color: var(--white) !important;
+      padding: 0.45rem 1.1rem;
+      border-radius: 4px;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: #a8672e !important; color: var(--white) !important; }
+
+    /* ── HERO ────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      padding: 7rem 2rem 6rem;
+      overflow: hidden;
+    }
+    /* Signature element: decorative pipe grid background */
+    .hero-pipes {
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      background-image:
+        repeating-linear-gradient(0deg,   transparent, transparent 38px, rgba(192,122,58,1) 38px, rgba(192,122,58,1) 40px),
+        repeating-linear-gradient(90deg,  transparent, transparent 38px, rgba(192,122,58,1) 38px, rgba(192,122,58,1) 40px);
+    }
+    /* Diagonal cut to next section */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 120px;
+      background: var(--light);
+      clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      line-height: 0.95;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em {
+      color: var(--copper);
+      font-style: normal;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.7;
+      max-width: 500px;
+      margin-bottom: 2.4rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--copper);
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #a8672e; transform: translateY(-1px); }
+    .btn-secondary {
+      border: 1.5px solid rgba(255,255,255,0.35);
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--copper); background: rgba(192,122,58,0.12); }
+
+    /* Trust strip */
+    .hero-trust {
+      position: absolute;
+      bottom: 140px;
+      left: 2rem;
+      right: 2rem;
+      z-index: 2;
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .trust-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--copper);
+      line-height: 1;
+    }
+    .trust-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.15rem;
+    }
+
+    /* ── SERVICES ────────────────────────────────────── */
+    #services {
+      background: var(--light);
+      padding: 7rem 2rem 5rem;
+    }
+    .section-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      letter-spacing: 0.02em;
+      color: var(--navy);
+      margin-bottom: 3rem;
+      line-height: 1.05;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 2rem 1.75rem;
+      border-top: 3px solid var(--copper);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .service-card:hover {
+      box-shadow: 0 8px 28px rgba(11,31,58,0.10);
+      transform: translateY(-3px);
+    }
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .service-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.03em;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+    .service-card p {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    /* ── WHY US ──────────────────────────────────────── */
+    #about {
+      background: var(--navy);
+      padding: 5.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #about .hero-pipes { opacity: 0.04; }
+    .about-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .about-text .section-label { color: var(--copper); }
+    .about-text .section-title { color: var(--white); margin-bottom: 1rem; }
+    .about-text p {
+      color: rgba(255,255,255,0.7);
+      line-height: 1.75;
+      font-size: 0.97rem;
+      margin-bottom: 1.5rem;
+    }
+    .reasons { display: flex; flex-direction: column; gap: 1.2rem; }
+    .reason {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .reason-icon {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: rgba(192,122,58,0.18);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .reason-body h4 {
+      font-weight: 600;
+      color: var(--white);
+      font-size: 0.92rem;
+      margin-bottom: 0.2rem;
+    }
+    .reason-body p {
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ── CONTACT ─────────────────────────────────────── */
+    #contact {
+      background: var(--light);
+      padding: 6rem 2rem;
+    }
+    .contact-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-inner .section-label { display: block; }
+    .contact-inner .section-title { margin-bottom: 0.75rem; }
+    .contact-inner > p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.97rem;
+      margin-bottom: 2.5rem;
+    }
+    .contact-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+    }
+    .contact-card {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .contact-card:hover {
+      border-color: var(--copper);
+      box-shadow: 0 4px 16px rgba(11,31,58,0.08);
+    }
+    .contact-card-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .contact-card-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.15rem;
+    }
+    .contact-card-value {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .service-area {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .service-area strong { color: var(--text); }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      padding: 1.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    footer .nav-logo { font-size: 1.1rem; }
+    footer p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 720px) {
+      nav { padding: 0.85rem 1.25rem; }
+      .nav-links { display: none; }
+      .hero { padding: 6rem 1.25rem 5rem; }
+      .hero-trust { bottom: 110px; left: 1.25rem; gap: 1.5rem; }
+      #services, #contact { padding: 5rem 1.25rem 4rem; }
+      #about { padding: 4.5rem 1.25rem; }
+      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .service-card, .btn-primary { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Miguel's<span> Plumbing</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav-cta">Call Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-pipes" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Surrey, BC · Licensed &amp; Insured</span>
+      <h1>No Drip<br>Goes <em>Unfixed.</em></h1>
+      <p>Miguel's Plumbing handles everything from emergency leaks to full bathroom renovations — fast, fair, and done right the first time.</p>
+      <div class="hero-actions">
+        <a href="tel:+17781234567" class="btn-primary">📞 Call (778) 123-4567</a>
+        <a href="#services" class="btn-secondary">See Services</a>
+      </div>
+    </div>
+    <div class="hero-trust" aria-label="Key facts">
+      <div class="trust-item">
+        <span class="trust-num">15+</span>
+        <span class="trust-label">Years in Surrey</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-num">24/7</span>
+        <span class="trust-label">Emergency Service</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-num">500+</span>
+        <span class="trust-label">Happy Customers</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-inner">
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title">From Leaky Taps to<br>Full Installations</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="service-icon">🚨</span>
+          <h3>Emergency Repairs</h3>
+          <p>Burst pipe, no hot water, or flooding? We answer the phone any hour and arrive fast anywhere in Surrey.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🚿</span>
+          <h3>Bathroom &amp; Kitchen</h3>
+          <p>Fixture installs, faucet replacements, drain clearing, and full bathroom renovations — all on budget.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🌡️</span>
+          <h3>Water Heaters</h3>
+          <p>Tank and tankless water heater installation, repair, and maintenance. We carry the top brands.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🏗️</span>
+          <h3>New Construction</h3>
+          <p>Rough-in and finish plumbing for new builds and additions throughout the Lower Mainland.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🔬</span>
+          <h3>Camera Inspections</h3>
+          <p>Video inspection of drains and sewer lines — know exactly what's going on before we dig.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">💧</span>
+          <h3>Water Quality</h3>
+          <p>Filtration systems, water softeners, and pressure regulators to keep your water clean and consistent.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / WHY US -->
+  <section id="about">
+    <div class="hero-pipes" aria-hidden="true"></div>
+    <div class="about-inner">
+      <div class="about-text">
+        <p class="section-label">Why Miguel's</p>
+        <h2 class="section-title">Trade Skills.<br>Honest Prices.</h2>
+        <p>Miguel Hernandez has been fixing plumbing in Surrey and the surrounding area since 2009. Every job gets his personal attention — no junior crews sent alone, no surprise charges on the invoice.</p>
+        <p>Licensed Red Seal journeyman plumber, fully insured, and proud to be a local business serving local families.</p>
+        <a href="#contact" class="btn-primary">Get a Free Quote</a>
+      </div>
+      <div class="reasons">
+        <div class="reason">
+          <div class="reason-icon">🏅</div>
+          <div class="reason-body">
+            <h4>Red Seal Certified</h4>
+            <p>Fully licensed and compliant with BC plumbing code on every job.</p>
+          </div>
+        </div>
+        <div class="reason">
+          <div class="reason-icon">💬</div>
+          <div class="reason-body">
+            <h4>Upfront Pricing</h4>
+            <p>We quote before we start. No hidden fees, no meter running while we talk.</p>
+          </div>
+        </div>
+        <div class="reason">
+          <div class="reason-icon">⚡</div>
+          <div class="reason-body">
+            <h4>Same-Day Availability</h4>
+            <p>For most non-emergency jobs we can be there the same or next day.</p>
+          </div>
+        </div>
+        <div class="reason">
+          <div class="reason-icon">✅</div>
+          <div class="reason-body">
+            <h4>Satisfaction Guaranteed</h4>
+            <p>If something isn't right after we leave, we come back and fix it — no charge.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title">Ready When You Are</h2>
+      <p>Call, text, or email anytime. For emergencies we pick up 24/7 — for quotes we'll get back to you within a few hours.</p>
+      <div class="contact-cards">
+        <a href="tel:+17781234567" class="contact-card">
+          <span class="contact-card-icon">📞</span>
+          <div>
+            <div class="contact-card-label">Phone / Text</div>
+            <div class="contact-card-value">(778) 123-4567</div>
+          </div>
+        </a>
+        <a href="mailto:miguel@miguelsplumbing.ca" class="contact-card">
+          <span class="contact-card-icon">✉️</span>
+          <div>
+            <div class="contact-card-label">Email</div>
+            <div class="contact-card-value">miguel@miguelsplumbing.ca</div>
+          </div>
+        </a>
+        <div class="contact-card">
+          <span class="contact-card-icon">🕐</span>
+          <div>
+            <div class="contact-card-label">Hours</div>
+            <div class="contact-card-value">24/7 Emergency</div>
+          </div>
+        </div>
+      </div>
+      <p class="service-area">Serving <strong>Surrey, Delta, Langley, White Rock, Cloverdale,</strong> and the surrounding Lower Mainland.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="nav-logo">Miguel's<span> Plumbing</span></a>
+    <p>© 2026 Miguel's Plumbing · Surrey, BC · Licensed &amp; Insured</p>
+  </footer>
+
+</body>
+</html>
